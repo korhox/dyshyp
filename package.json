@@ -1,0 +1,25 @@
+{
+  "name": "dyshyp",
+  "version": "1.0.0",
+  "description": "An application to help dyslectic readers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/korhox/dyshyp.git"
+  },
+  "keywords": [
+    "dyslexia",
+    "dyslectic",
+    "hypenate",
+    "hypen"
+  ],
+  "author": "korho",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/korhox/dyshyp/issues"
+  },
+  "homepage": "https://github.com/korhox/dyshyp#readme"
+}
