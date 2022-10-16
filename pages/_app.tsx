@@ -11,7 +11,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <>
             <Head>
                 <title>DysHyp</title>
-                <link rel="stylesheet" type="text/css" href="https://cdn.bittivirta.fi/css/fonts/font-package.css" />
             </Head>
             <div className="app flex flex-col h-full">
                 <Header />
