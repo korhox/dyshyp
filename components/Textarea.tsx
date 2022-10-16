@@ -2,14 +2,14 @@ import React from "react";
 import { debounce } from "lodash";
 import { hyphenateHTML } from "hyphen/en";
 
-const divitor = "%%%%%";
+const divisor = "%%%%%";
 
 const Textarea = () => {
     const [text, setText] = React.useState<string[]>([]);
     const debouncedHyphenation = React.useCallback(
         debounce((newText: string) => {
-            hyphenateHTML(newText, { minWordLength: 3, hyphenChar: divitor }).then((val) => {
-                setText(val.split(divitor));
+            hyphenateHTML(newText, { minWordLength: 3, hyphenChar: divisor }).then((val) => {
+                setText(val.split(divisor));
             });
         }, 1000),
         []
