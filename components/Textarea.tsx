@@ -22,9 +22,12 @@ const flattenChildTextNodes = (node: Node): Node[] => {
 const handlePaste = (e: ClipboardEvent) => {
     e.preventDefault();
 
-    const text = e.clipboardData?.getData("text/plain");
+    const body = e.clipboardData
+        ?.getData("text/html")
+        .replaceAll("\n", "<br>")
+        .replaceAll(/(?!<\/?br\/?)<\/?.+?\/?>/g, "");
     //TODO Find alternative for this as execCommand is deprecated. At this point there doesn't seem to be another standard
-    document.execCommand("insertHTML", false, text);
+    document.execCommand("insertHTML", false, body);
 };
 
 const getCaretPosition = (root_node: Node, offset_from_root: number): { start_node: Node; offset_from_node: number } => {
