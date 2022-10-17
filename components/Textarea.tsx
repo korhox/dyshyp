@@ -119,6 +119,9 @@ const Textarea = () => {
 
     const updateCaretPosition = () => {
         //Calculate the distance the caret is from the start of the editable div and save it as offset.
+
+        if (window.getSelection()?.rangeCount === 0) return;
+        console.log(window.getSelection()?.rangeCount);
         const range = window.getSelection()?.getRangeAt(0);
         if (!textRef.current || !range) return;
 
@@ -126,6 +129,7 @@ const Textarea = () => {
         preCaretRange.selectNodeContents(textRef.current);
         preCaretRange.setEnd(range?.endContainer, range?.endOffset);
         setOffset(preCaretRange.toString().length);
+        //console.log(preCaretRange.toString().length);
     };
 
     return (
