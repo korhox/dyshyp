@@ -84,7 +84,10 @@ const Textarea = () => {
     const updateText = (newText: string) => {
         setText(newText);
         debouncedHyphenation(newText);
+        updateCaretPosition();
+    };
 
+    const updateCaretPosition = () => {
         //Calculate the distance the caret is from the start of the editable div and save it as offset.
         const range = window.getSelection()?.getRangeAt(0);
         if (!textRef.current || !range) return;
@@ -104,6 +107,7 @@ const Textarea = () => {
                 onInput={(e) => {
                     updateText((e.target as HTMLParagraphElement).innerHTML);
                 }}
+                onSelect={(_e) => updateCaretPosition()}
                 suppressContentEditableWarning
                 ref={textRef}
                 dangerouslySetInnerHTML={{ __html: text }}
