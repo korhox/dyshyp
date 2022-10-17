@@ -53,6 +53,15 @@ const Textarea = () => {
     const debouncedHyphenation = React.useCallback(
         debounce((newText: string) => {
             hyphenateHTML(newText.replaceAll(/<\/?span.*?>/g, ""), { minWordLength: 3, hyphenChar: divisor }).then((hyphenated) => {
+                //Remove hyphentation from HTML entitites
+                const match = hyphenated.matchAll(/&.+?;/g);
+                let result = null;
+                while (!result?.done) {
+                    result = match.next();
+                    if (result.value) {
+                        hyphenated = hyphenated.replace(result.value[0], result.value[0].replace(divisor, ""));
+                    }
+                }
                 let color = 0;
                 setText(
                     hyphenated
