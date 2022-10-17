@@ -19,6 +19,14 @@ const flattenChildTextNodes = (node: Node): Node[] => {
     return textNodes;
 };
 
+const handlePaste = (e: ClipboardEvent) => {
+    e.preventDefault();
+
+    const text = e.clipboardData?.getData("text/plain");
+    //TODO Find alternative for this as execCommand is deprecated. At this point there doesn't seem to be another standard
+    document.execCommand("insertHTML", false, text);
+};
+
 const getCaretPosition = (root_node: Node, offset_from_root: number): { start_node: Node; offset_from_node: number } => {
     //Get only text nodes from the children
     const nodes = flattenChildTextNodes(root_node);
@@ -64,6 +72,16 @@ const Textarea = () => {
         }, 1000),
         []
     );
+
+    React.useEffect(() => {
+        if (!textRef.current) return;
+
+        textRef.current.addEventListener("paste", handlePaste);
+
+        return () => {
+            textRef.current?.removeEventListener("paste", handlePaste);
+        };
+    }, [textRef.current]);
 
     React.useEffect(() => {
         if (!offset || !textRef.current) return;
