@@ -1,8 +1,8 @@
 import React from "react";
-import { debounce } from "lodash";
+import debounce from "lodash.debounce";
 import { hyphenateHTML } from "hyphen/en";
 
-const divisor = "";
+const divisor = "[–]";
 
 const flattenChildTextNodes = (node: Node): Node[] => {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -44,8 +44,22 @@ const Textarea = () => {
 
     const debouncedHyphenation = React.useCallback(
         debounce((newText: string) => {
-            hyphenateHTML(newText, { minWordLength: 3, hyphenChar: divisor }).then((val) => {
-                setText(val);
+            hyphenateHTML(newText.replaceAll(/<\/?span.*?>/g, ""), { minWordLength: 3, hyphenChar: divisor }).then((hyphenated) => {
+                let color = 0;
+                setText(
+                    hyphenated
+                        .split(divisor)
+                        .map((part) =>
+                            part
+                                .split(" ")
+                                .map((hyphen) => {
+                                    color += 1;
+                                    return `<span class="${color % 2 === 0 ? "text-red-500" : "text-blue-500"}">${hyphen}</span>`;
+                                })
+                                .join(" ")
+                        )
+                        .join("")
+                );
             });
         }, 1000),
         []
@@ -80,6 +94,7 @@ const Textarea = () => {
         preCaretRange.setEnd(range?.endContainer, range?.endOffset);
         setOffset(preCaretRange.toString().length);
     };
+
     return (
         <div className="container flex-1 flex flex-col">
             <p
