@@ -4,6 +4,21 @@ import { hyphenateHTML } from "hyphen/en";
 
 const divisor = "";
 
+const flattenChildTextNodes = (node: Node): Node[] => {
+    if (node.nodeType === Node.TEXT_NODE) {
+        return [node];
+    }
+
+    if (node.childNodes.length === 0) return [];
+
+    let textNodes: Node[] = [];
+    node.childNodes.forEach((child) => {
+        textNodes = textNodes.concat(flattenChildTextNodes(child));
+    });
+
+    return textNodes;
+};
+
 const Textarea = () => {
     const [text, setText] = React.useState("");
     const [offset, setOffset] = React.useState<number | undefined>(undefined);
@@ -21,21 +36,29 @@ const Textarea = () => {
     React.useEffect(() => {
         if (!offset || !textRef.current) return;
 
-        const range = document.createRange();
+        console.log(flattenChildTextNodes(textRef.current));
+
+        /*const range = document.createRange();
         range.setStart(textRef.current?.childNodes[0], offset);
 
         const selection = document.getSelection();
         selection?.removeAllRanges();
-        selection?.addRange(range);
+        selection?.addRange(range);*/
     }, [text, offset]);
 
     const updateText = (newText: string) => {
         setText(newText);
         debouncedHyphenation(newText);
 
-        console.log(newText);
-        const range = document.getSelection()?.getRangeAt(0);
-        setOffset(range?.startOffset);
+        const range = window.getSelection()?.getRangeAt(0);
+
+        if (!textRef.current || !range) return;
+
+        const preCaretRange = range.cloneRange();
+
+        preCaretRange.selectNodeContents(textRef.current);
+        preCaretRange.setEnd(range?.endContainer, range?.endOffset);
+        setOffset(preCaretRange.toString().length);
     };
     return (
         <div className="container flex-1 flex flex-col">
