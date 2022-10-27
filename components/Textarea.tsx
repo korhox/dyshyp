@@ -5,7 +5,7 @@ import { hyphenateHTML } from "hyphen/en";
 const divisor = "[–]";
 
 const flattenChildTextNodes = (node: Node): Node[] => {
-    if (node.nodeType === Node.TEXT_NODE) {
+    if (node.nodeType === Node.TEXT_NODE || node.nodeName === "BR") {
         return [node];
     }
 
@@ -31,21 +31,39 @@ const handlePaste = (e: ClipboardEvent) => {
 };
 
 const getCaretPosition = (root_node: Node, offset_from_root: number): { start_node: Node; offset_from_node: number } => {
-    //Get only text nodes from the children
+    //Get only text and br nodes from the children
     const nodes = flattenChildTextNodes(root_node);
 
     //Find which node and with which offset the offset_from_root falls into
     let index = 0;
     let new_offset = offset_from_root;
-    while (new_offset > nodes[index].length) {
-        new_offset -= nodes[index].length;
+    while (new_offset > (nodes[index].length ?? 1)) {
+        new_offset -= nodes[index].length ?? 1;
         index += 1;
     }
 
-    return {
-        start_node: nodes[index],
-        offset_from_node: new_offset,
+    const result = {
+        start_node: nodes[index].nodeName === "BR" ? nodes[index + 1] ?? nodes[index] : nodes[index],
+        offset_from_node: nodes[index].nodeName === "BR" ? 0 : new_offset,
     };
+
+    return result;
+};
+
+const getSelectionText = (node: Node | DocumentFragment): string => {
+    if (node.nodeType === Node.TEXT_NODE) {
+        return node.textContent ?? "";
+    }
+    if (node.nodeName === "BR") {
+        return "\n";
+    }
+
+    let selectionText = "";
+    node.childNodes.forEach((child) => {
+        selectionText += getSelectionText(child);
+    });
+
+    return selectionText;
 };
 
 const Textarea = () => {
@@ -98,7 +116,7 @@ const Textarea = () => {
     React.useEffect(() => {
         if (!offset || !textRef.current) return;
 
-        //Get the carets position from the offset from start
+        //Get the caret's position from the offset from start
         const { start_node, offset_from_node } = getCaretPosition(textRef.current, offset);
 
         //Create range representing caret position
@@ -114,22 +132,20 @@ const Textarea = () => {
     const updateText = (newText: string) => {
         setText(newText);
         debouncedHyphenation(newText);
-        updateCaretPosition();
+        updateCaretPosition("text: ");
     };
 
-    const updateCaretPosition = () => {
+    const updateCaretPosition = (caller?: string) => {
         //Calculate the distance the caret is from the start of the editable div and save it as offset.
 
         if (window.getSelection()?.rangeCount === 0) return;
-        console.log(window.getSelection()?.rangeCount);
         const range = window.getSelection()?.getRangeAt(0);
         if (!textRef.current || !range) return;
 
         const preCaretRange = range.cloneRange();
         preCaretRange.selectNodeContents(textRef.current);
         preCaretRange.setEnd(range?.endContainer, range?.endOffset);
-        setOffset(preCaretRange.toString().length);
-        //console.log(preCaretRange.toString().length);
+        setOffset(getSelectionText(preCaretRange.cloneContents()).length);
     };
 
     return (
@@ -141,7 +157,7 @@ const Textarea = () => {
                 onInput={(e) => {
                     updateText((e.target as HTMLParagraphElement).innerHTML);
                 }}
-                onSelect={(_e) => updateCaretPosition()}
+                onSelect={(_e) => updateCaretPosition("select: ")}
                 suppressContentEditableWarning
                 ref={textRef}
                 dangerouslySetInnerHTML={{ __html: text }}
