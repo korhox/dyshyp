@@ -1,6 +1,7 @@
+"use client"
 import React from "react";
 import { hyphenateHTML } from "hyphen/fi";
-import fiTxt from "../examples/fi";
+import fiTxt from "../../examples/fi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,7 +28,10 @@ const Textarea = () => {
         const text = editor.value.replaceAll("\n", "<br />");
         hyphenateHTML(text, { minWordLength: 3, hyphenChar: divitor })
             .then((val) => {
+                // todo:
                 // Suomen tasavalta ==> ["Suo", "men ta", "sa", "val", "ta"]
+                // Should be fixed to  ["Suo", "men ", "ta", "sa", "val", "ta"]
+                // The space should be split, but not removed
                 let words = val.split(divitor);
                 let result = words.map((word, i) => {
                     if (i % 2 === 0) {

@@ -7,8 +7,8 @@ const Header = () => (
         <div className="container flex items-center justify-between">
             <h1 className="text-3xl font-bold">DysHyp</h1>
             <nav className="flex items-center">
-                <Link href="/"><a className="p-3">Home</a></Link>
-                <Link href="https://github.com/korhox/dyshyp"><a className="p-3 text-2xl" target="_blank"><FontAwesomeIcon icon={faGithub} /></a></Link>
+                <Link className="p-3" href="/">Home</Link>
+                <Link className="p-3 text-2xl" target="_blank" href="https://github.com/korhox/dyshyp"><FontAwesomeIcon icon={faGithub} /></Link>
             </nav>
         </div>
     </header>
