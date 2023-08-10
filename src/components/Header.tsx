@@ -8,6 +8,7 @@ const Header = () => (
             <h1 className="text-3xl font-bold">DysHyp</h1>
             <nav className="flex items-center">
                 <Link className="p-3" href="/">Home</Link>
+                <Link className="p-3" href="/reader">Reader</Link>
                 <Link className="p-3 text-2xl" target="_blank" href="https://github.com/korhox/dyshyp"><FontAwesomeIcon icon={faGithub} /></Link>
             </nav>
         </div>
