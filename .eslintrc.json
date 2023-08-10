@@ -17,5 +17,7 @@
     "plugins": [
         "react"
     ],
-    "rules": {}
+    "rules": {
+        "@typescript-eslint/restrict-plus-operands": "error"
+    }
 }

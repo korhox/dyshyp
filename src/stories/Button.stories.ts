@@ -27,5 +27,6 @@ export const Primary: Story = {
   // Type '{ label: string; }' is not assignable to type 'Partial<{ label: string; 
   args: {
     label: 'Button',
+    style: 'primary',
   },
 };

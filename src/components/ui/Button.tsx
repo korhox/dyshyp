@@ -2,7 +2,7 @@ import React, { FunctionComponent, HTMLAttributes } from 'react'
 
 type Props = {
     label: string,
-    style: string,
+    style: "primary" | "default",
 
 } & HTMLAttributes<HTMLElement>
 
