@@ -26,15 +26,15 @@ const Textarea = () => {
     const updateText = async () => {
         const editor = document.getElementById("editor") as HTMLTextAreaElement;
         let text = editor.value
-        let last_colored = 0
+
+        let colored = false
 
         text = text.split(" ").map((word) => {
             const hyphens = (hyphenateHTMLSync(word.replaceAll("\n", "<br />"), { minWordLength: 3, hyphenChar: divitor })).split(divitor)
-            console.log(hyphens)
 
             return hyphens.map((hyphen) => {
-                last_colored = last_colored ? 0 : 1
-                return last_colored ? `<span class='alt text-blue-600'>${hyphen}</span>` : hyphen;
+                colored = !colored
+                return colored ? `<span class='alt text-blue-600'>${hyphen}</span>` : hyphen;
             }).join("")
 
         }).join(" ");
