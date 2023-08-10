@@ -1,12 +1,12 @@
 import React, { FunctionComponent, HTMLAttributes } from 'react'
 
 type Props = {
-    text: string,
+    label: string,
     style: string,
 
 } & HTMLAttributes<HTMLElement>
 
-const Button: FunctionComponent<Props> = ({ text, style, ...rest }) => {
+const Button: FunctionComponent<Props> = ({ label, style, ...rest }) => {
     let styleClasses = "";
     switch (style) {
         case "primary":
@@ -16,7 +16,7 @@ const Button: FunctionComponent<Props> = ({ text, style, ...rest }) => {
             styleClasses = "bg-slate-300 hover:bg-slate-400 text-slate-700";
     }
     return <a className={`${styleClasses} font-bold py-3 px-4 rounded-full m-2`} {...rest} >
-        {text}
+        {label}
     </a>;
 }
 
