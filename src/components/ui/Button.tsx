@@ -2,11 +2,11 @@ import React, { FunctionComponent, HTMLAttributes } from 'react'
 
 type Props = {
     label: string,
-    style: "primary" | "default",
+    style: "primary" | "secondary",
 
 } & HTMLAttributes<HTMLElement>
 
-const Button: FunctionComponent<Props> = ({ label, style, ...rest }) => {
+const Button: FunctionComponent<Props> = ({ label, style = "secondary", ...rest }) => {
     let styleClasses = "";
     switch (style) {
         case "primary":
