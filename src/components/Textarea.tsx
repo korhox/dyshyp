@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import { hyphenateHTML } from "hyphen/fi";
+import { hyphenateHTML, hyphenateHTMLSync } from "hyphen/fi";
 import fiTxt from "../../examples/fi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
@@ -23,26 +23,25 @@ const Textarea = () => {
     const [sourceText, setSourceText] = React.useState<any>("");
     const [text, setText] = React.useState<any>(null);
 
-    const updateText = () => {
+    const updateText = async () => {
         const editor = document.getElementById("editor") as HTMLTextAreaElement;
-        const text = editor.value.replaceAll("\n", "<br />");
-        hyphenateHTML(text, { minWordLength: 3, hyphenChar: divitor })
-            .then((val) => {
-                // todo:
-                // Suomen tasavalta ==> ["Suo", "men ta", "sa", "val", "ta"]
-                // Should be fixed to  ["Suo", "men ", "ta", "sa", "val", "ta"]
-                // The space should be split, but not removed
-                let words = val.split(divitor);
-                let result = words.map((word, i) => {
-                    if (i % 2 === 0) {
-                        return word;
-                    } else {
-                        return `<span class='alt text-blue-600'>${word}</span>`;
-                    }
-                })
-                setText(result.join(""));
-                setSourceText(editor.value);
-            });
+        let text = editor.value
+        let last_colored = 0
+
+        text = text.split(" ").map((word) => {
+            const hyphens = (hyphenateHTMLSync(word.replaceAll("\n", "<br />"), { minWordLength: 3, hyphenChar: divitor })).split(divitor)
+            console.log(hyphens)
+
+            return hyphens.map((hyphen) => {
+                last_colored = last_colored ? 0 : 1
+                return last_colored ? `<span class='alt text-blue-600'>${hyphen}</span>` : hyphen;
+            }).join("")
+
+        }).join(" ");
+
+
+        setText(text);
+        setSourceText(editor.value);
     }
 
     const insertExampleText = () => {
