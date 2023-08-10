@@ -5,6 +5,8 @@ import fiTxt from "../../examples/fi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 
+import Button from "./ui/Button";
+
 const divitor = "%%%%%";
 
 const Language = () => {
@@ -68,12 +70,8 @@ const Textarea = () => {
                             <Language />
                         </div>
                         <div>
-                            <button className="bg-slate-300 hover:bg-slate-400 text-slate-700 font-bold py-2 px-4 rounded-full m-2" onClick={resetText}>
-                                Reset
-                            </button>
-                            <button className="bg-reorang hover:bg-reorang/50 text-white font-bold py-2 px-4 rounded-full m-2" onClick={editText}>
-                                Edit text
-                            </button>
+                            <Button text="Reset" style="secondary" onClick={resetText} />
+                            <Button text="Edit text" style="primary" onClick={editText} />
                         </div>
                     </div>
                     <div className="shadow-lg w-full p-5 flex-1 mb-5 rounded-2xl bg-slate-50 text-red-600 font-bold" dangerouslySetInnerHTML={{ __html: text }}></div>
@@ -84,15 +82,9 @@ const Textarea = () => {
                             <Language />
                         </div>
                         <div>
-                            <button className="bg-slate-300 hover:bg-slate-400 text-slate-700 font-bold py-2 px-4 rounded-full m-2" onClick={resetText}>
-                                Reset
-                            </button>
-                            <button className="bg-slate-300 hover:bg-slate-400 text-slate-700 font-bold py-2 px-4 rounded-full m-2" onClick={insertExampleText}>
-                                Insert Example Text
-                            </button>
-                            <button className="bg-reorang hover:bg-reorang/50 text-white font-bold py-2 px-4 rounded-full m-2" onClick={updateText}>
-                                Hyphenate
-                            </button>
+                            <Button text="Reset" style="secondary" onClick={resetText} />
+                            <Button text="Insert Example Text" style="secondary" onClick={insertExampleText} />
+                            <Button text="Hyphenate" style="primary" onClick={updateText} />
                         </div>
                     </div>
                     <textarea className="shadow-lg w-full p-5 flex-1 mb-5 rounded-2xl font-bold" id="editor" value={sourceText} onChange={(e) => { setSourceText(e.target.value) }} />
