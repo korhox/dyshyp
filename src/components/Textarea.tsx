@@ -69,8 +69,8 @@ const Textarea = () => {
                             <Language />
                         </div>
                         <div>
-                            <Button text="Reset" style="secondary" onClick={resetText} />
-                            <Button text="Edit text" style="primary" onClick={editText} />
+                            <Button label="Reset" style="secondary" onClick={resetText} />
+                            <Button label="Edit text" style="primary" onClick={editText} />
                         </div>
                     </div>
                     <div className="shadow-lg w-full p-5 flex-1 mb-5 rounded-2xl bg-slate-50 text-red-600 font-bold" dangerouslySetInnerHTML={{ __html: text }}></div>
@@ -81,9 +81,9 @@ const Textarea = () => {
                             <Language />
                         </div>
                         <div>
-                            <Button text="Reset" style="secondary" onClick={resetText} />
-                            <Button text="Insert Example Text" style="secondary" onClick={insertExampleText} />
-                            <Button text="Hyphenate" style="primary" onClick={updateText} />
+                            <Button label="Reset" style="secondary" onClick={resetText} />
+                            <Button label="Insert Example Text" style="secondary" onClick={insertExampleText} />
+                            <Button label="Hyphenate" style="primary" onClick={updateText} />
                         </div>
                     </div>
                     <textarea className="shadow-lg w-full p-5 flex-1 mb-5 rounded-2xl font-bold" id="editor" value={sourceText} onChange={(e) => { setSourceText(e.target.value) }} />
