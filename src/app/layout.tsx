@@ -8,7 +8,7 @@ config.autoAddCss = false
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body>
+            <body className="flex flex-col">
                 <Header />
                 {children}
                 <Footer />
