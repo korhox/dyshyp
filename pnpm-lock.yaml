@@ -32,6 +32,9 @@ dependencies:
   next:
     specifier: 13.4.13
     version: 13.4.13(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)(sass@1.64.2)
+  node-git-current-branch:
+    specifier: ^2.0.1
+    version: 2.0.1
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -8561,6 +8564,10 @@ packages:
     dependencies:
       whatwg-url: 5.0.0
     dev: true
+
+  /node-git-current-branch@2.0.1:
+    resolution: {integrity: sha512-4u7HjXUEvWZZ88h/RAA4DdF1C0ER2j9i75QEcS3UJGIhhv8UAIyrXVESz+IlChCyWRls7SDk8wcmafHzFVbs6w==}
+    dev: false
 
   /node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}

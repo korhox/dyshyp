@@ -2,20 +2,20 @@ import React, { FunctionComponent, HTMLAttributes } from 'react'
 
 type Props = {
     label: string,
-    style: "primary" | "secondary",
-
+    style?: "primary" | "secondary",
+    href?: string | null,
 } & HTMLAttributes<HTMLElement>
 
-const Button: FunctionComponent<Props> = ({ label, style = "secondary", ...rest }) => {
+const Button: FunctionComponent<Props> = ({ label, style = "secondary", href, ...rest }) => {
     let styleClasses = "";
     switch (style) {
         case "primary":
-            styleClasses = "bg-reorang hover:bg-reorang/50 text-white";
+            styleClasses = "text-slate-900 font-bold ";
             break;
         default:
-            styleClasses = "bg-slate-300 hover:bg-slate-400 text-slate-700";
+            styleClasses = "text-slate-700";
     }
-    return <a className={`${styleClasses} font-bold py-3 px-4 rounded-full m-2`} {...rest} >
+    return <a className={`glass py-2 px-4 rounded-full hover:scale-105 transition-transform cursor-pointer ${styleClasses}`} href={href && href} {...rest} >
         {label}
     </a>;
 }

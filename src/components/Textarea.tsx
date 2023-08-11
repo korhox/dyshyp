@@ -11,9 +11,9 @@ const divitor = "%%%%%";
 
 const Language = () => {
     return (
-        <div className="rounded-full shadow-lg bg-white p-3 py-2">
+        <div className="rounded-full shadow-lg glass p-3 py-2">
             <label htmlFor="language" className="mr-2"><FontAwesomeIcon icon={faLanguage} /></label>
-            <select id="language" className="">
+            <select id="language" className="bg-transparent">
                 <option value="fi">Finnish</option>
                 <option value="sv">Swedish</option>
                 <option value="en">English</option>
@@ -61,7 +61,7 @@ const Textarea = () => {
     }
 
     return (
-        <div className="container flex-1 flex flex-col p-5">
+        <div className="container flex-1 flex flex-col py-5">
             {text ?
                 <>
                     <div className="flex justify-between gap-5 mb-5 items-center">
@@ -73,20 +73,20 @@ const Textarea = () => {
                             <Button label="Edit text" style="primary" onClick={editText} />
                         </div>
                     </div>
-                    <div className="shadow-lg w-full p-5 flex-1 mb-5 rounded-2xl bg-slate-50 text-red-600 font-bold" dangerouslySetInnerHTML={{ __html: text }}></div>
+                    <div className="glass w-full p-5 flex-1 mb-5 rounded-2xl bg-slate-50 text-red-600 font-bold" dangerouslySetInnerHTML={{ __html: text }}></div>
                 </> :
                 <>
                     <div className="flex justify-between gap-5 mb-5 items-center">
                         <div className="flex gap-4">
                             <Language />
                         </div>
-                        <div>
+                        <div className="flex gap-4">
                             <Button label="Reset" style="secondary" onClick={resetText} />
                             <Button label="Insert Example Text" style="secondary" onClick={insertExampleText} />
                             <Button label="Hyphenate" style="primary" onClick={updateText} />
                         </div>
                     </div>
-                    <textarea className="shadow-lg w-full p-5 flex-1 mb-5 rounded-2xl font-bold" id="editor" value={sourceText} onChange={(e) => { setSourceText(e.target.value) }} />
+                    <textarea className="glass w-full p-5 flex-1 mb-5 rounded-2xl font-bold" id="editor" value={sourceText} onChange={(e) => { setSourceText(e.target.value) }} />
                 </>
             }
         </div>
