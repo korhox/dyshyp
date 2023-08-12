@@ -1,3 +1,4 @@
+"use client";
 import "../scss/global.scss";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -8,6 +9,9 @@ config.autoAddCss = false
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
+            <head>
+                <title>DysHyp Reader</title>
+            </head>
             <body className="flex flex-col">
                 <Header />
                 {children}

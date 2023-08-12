@@ -14,8 +14,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     background-image: url("/assets/background.webp");
     background-size: cover;
     background-attachment: fixed;
@@ -26,16 +24,12 @@ body {
     margin: 0 auto;
 }
 
-header {
-    border-top: 1px solid #F06828;
-}
-
 .glass {
-    background: rgba(255, 255, 255, 0.4);
     box-shadow: 0 0 15px 0 rgba(31, 38, 135, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
+
 
 .glass-dark {
     background: rgba(0, 0, 0, 0.1);

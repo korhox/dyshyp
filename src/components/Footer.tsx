@@ -3,7 +3,7 @@ import { faCodeBranch, faTag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-const getCurrentBranchName = require('node-git-current-branch');
+const getCurrentBranchName = () => { return "main"; };
 const packageJson = require('/package.json');
 const configJson = require('/config.json');
 
@@ -12,7 +12,7 @@ const Footer = () => (
         <div className="container py-3 text-xs">
             <div className="items-center flex justify-between">
                 <div className="flex gap-3 items-center">
-                    <p>Copyright &copy; Juuso &quot;korho&quot; Korhonen and GitHub contributors.</p>
+                    <p>Copyright &copy; Juuso &quot;korho&quot; Korhonen and GitHub contributors. <a href="https://storyset.com/people" target="_blank" rel="nofollow noopener" className="opacity-50">People illustrations by Storyset</a></p>
                 </div>
                 <div className="flex gap-3 justify-end items-center">
                     <Link href="https://github.com/korhox/dyshyp"><FontAwesomeIcon icon={faGithub} /></Link>
